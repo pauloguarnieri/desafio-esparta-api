@@ -143,5 +143,5 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Teste-Esparta-API',
     'DESCRIPTION': 'A manager to tasks organized by projects',
     'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
+    'SERVE_INCLUDE_SCHEMA': True,
 }

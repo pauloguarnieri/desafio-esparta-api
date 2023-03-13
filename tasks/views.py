@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from .serializers import TaskSerializer
 from projects.models import Project
 from .models import Task
-import ipdb
+
 
 class TaskView(ListCreateAPIView):
     serializer_class = TaskSerializer
@@ -17,14 +17,11 @@ class TaskView(ListCreateAPIView):
         return serializer.save(project=project_instance)
 
     def list(self, request, *args, **kwargs):
-        # ipdb.set_trace()
         project_id = self.kwargs.get('id')
-        project = Project.objects.get(id=project_id)
+        project = get_object_or_404(Project, pk=project_id)
         tasks = Task.objects.filter(project = project)
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
-
-
 
 
 class DetailTaskView(RetrieveUpdateDestroyAPIView):
