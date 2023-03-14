@@ -1,0 +1,39 @@
+SELECT aluno.nome FROM aluno 
+JOIN aluno_turma ON aluno.id = aluno_turma.aluno_id  
+JOIN turma ON turma.id = aluno_turma.turma_id
+JOIN professor ON professor.id = turma.professor_id
+WHERE professor.nome = 'JOAO PEDRO';
+
+SELECT turma.dia_da_semana FROM turma
+JOIN disciplina ON disciplina.id = turma.disciplina_id
+WHERE disciplina.nome = 'MATEMATICA';
+
+SELECT aluno.* FROM aluno
+JOIN aluno_turma ON aluno.id = aluno_turma.aluno_id  
+JOIN turma ON turma.id = aluno_turma.turma_id
+JOIN disciplina ON disciplina.id = turma.disciplina_id
+WHERE disciplina.nome = 'MATEMATICA' AND aluno.id IN (
+SELECT aluno.id FROM aluno
+JOIN aluno_turma ON aluno.id = aluno_turma.aluno_id  
+JOIN turma ON turma.id = aluno_turma.turma_id
+JOIN disciplina ON disciplina.id = turma.disciplina_id
+WHERE disciplina.nome = 'FISICA' 
+);
+
+SELECT disciplina.* FROM disciplina
+WHERE disciplina.id NOT IN (
+  SELECT turma.disciplina_id FROM turma);
+
+SELECT aluno.* FROM aluno
+JOIN aluno_turma ON aluno.id = aluno_turma.aluno_id  
+JOIN turma ON turma.id = aluno_turma.turma_id
+JOIN disciplina ON disciplina.id = turma.disciplina_id
+WHERE disciplina.nome = 'MATEMATICA' 
+AND aluno.id NOT IN (
+SELECT aluno.id FROM aluno
+JOIN aluno_turma ON aluno.id = aluno_turma.aluno_id  
+JOIN turma ON turma.id = aluno_turma.turma_id
+JOIN disciplina ON disciplina.id = turma.disciplina_id
+WHERE disciplina.nome = 'QUIMICA' 
+);
+
